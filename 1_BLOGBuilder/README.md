@@ -3,9 +3,18 @@
 *BLOGBuilder* is a module of *ComPI* that allows the automatic creation of series of BLOG model files that ideally increase in complexity. In this regard, multiple World Filling Strategies (as we call them) are available as explained below. 
 It is also possible to implement custom strategies for the creation of models and model series. 
 
+## Content
+
+* [Usage](#usage)
+  * [Setup](#setup)
+  * [Build & Execution](#build-&-execution)
+* [Implementation of World Filling Strategies](#implementation-of-world-filling-strategies)
+  * [Strategies](#strategies)
+  * [Factories](#factories)
+
 ## Usage
 
-Due to the not (yet) final state of *BLOGBuilder*, it is not yet distributed as a executable jar file. To allow the greatest amount of flexibility possible, it is shipped as the raw Java files. In order to create series of model files, we recommend you setup a Java project (e.g., in the Eclipse IDE) and proceed as follows.
+Due to the not (yet) final state of *BLOGBuilder*, it is not yet distributed as a executable jar file. To allow the greatest amount of flexibility possible, it is shipped as the raw Java files. In order to create series of model files, it is recommended you setup a Java project (e.g., in the Eclipse IDE) and proceed as follows.
 
 Strategy and parameter selection happen directly by setting corresponding variables in the java files:
 
@@ -87,7 +96,13 @@ Import the source files as a Maven project to Eclipse (File -> Import -> Maven /
    $ java -jar target/BLOGBuilder-0.0.1-SNAPSHOT-with-dependencies.jar
    ```
 
-## World Filling Strategies
+## Implementation of World Filling Strategies
+
+### Strategies
+
+
+
+### Factories
 
 **Explanation:** `baseFactory` vs. `augmentationFactory`
 
@@ -97,9 +112,9 @@ We differentiate between two factory types:
 * a `augmentationFactory` takes an existing `baseWorld` and augments it by changing (adding, removing, switching, ...) its elements, thus creating a `augmentWorld.`
   When new elements are added, the `aF` should request the world's `baseFactory` in order for the added elements' creation to comply with the previous world filling strategy.
 
-### Base Factories
+#### Base Factories
 
-#### `RandomSampleFactory`
+##### `RandomSampleFactory`
 
 `insertLogVars(...)`-Strategy:
 
@@ -132,11 +147,11 @@ We differentiate between two factory types:
    1. Create `r-1` factors, one for each of the last `r-1` RandVars.
    2. The `0`th RandVar is added to *every* factor (to connect all factors).
 
-### Augmentation Factories
+#### Augmentation Factories
 
 Augmentation Factories all extend the abstract class `GenericAugmentationFactory` where some default behaviors are implemented (e.g. the `init*` methods, where all elements from a base world are copied). 
 
-#### `LogVarAugmentationFactory`
+##### `LogVarAugmentationFactory`
 
 `insertLogVars(...)`-Strategy:
 
@@ -146,7 +161,7 @@ Augmentation Factories all extend the abstract class `GenericAugmentationFactory
    2. Randomly choose `rv_count` RandVars from the existing candidates, with `rv_count` as a random number between `1` and the world's `maxLVOccurence`.
    3. For each of these RandVars, randomly replace one of their current LogVars
 
-#### `RandVarAugmentationFactory`
+##### `RandVarAugmentationFactory`
 
 `insertRandVars(...)`-Strategy:
 
@@ -157,14 +172,14 @@ Augmentation Factories all extend the abstract class `GenericAugmentationFactory
       `fac_count ` as a random number between `1` and the world's `maxRVOccurence`.
    3. For each of these (par)factors, randomly replace one of the current RandVars. 
 
-#### `FactorAugmentationFactory`
+##### `FactorAugmentationFactory`
 
 `insertFactors(...)`-Strategy:
 
 1. Clone existing (par)factors from base world.
 2. Add new (par)factors based on the base world's base filling strategy. 
 
-#### `RandVarOccurrenceAugmentationFactory`
+##### `RandVarOccurrenceAugmentationFactory`
 
 `insertFactors(...)`-Strategy:
 
@@ -172,7 +187,7 @@ Augmentation Factories all extend the abstract class `GenericAugmentationFactory
 2. For each factor: Based on certain probability (e.g. 50%):
    1. Add a randomly chosen RandVar to those factors.
 
-#### `ParallelFactorArgsAugmentationFactory`
+##### `ParallelFactorArgsAugmentationFactory`
 
 `augmentation` strategy:
 

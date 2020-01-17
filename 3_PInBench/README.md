@@ -3,6 +3,18 @@
 *PInBench* is a **Bench**mark tool for **P**robabilistic **In**ference frameworks.
 It facilitates timekeeping for multi-file, multi-query runs which allows comparison of the frameworks.
 
+## Contents
+
+* [Supported Frameworks](#supported-frameworks)
+* [Operating the script](#operating-the-script)
+* [Input Model Files](#input-model-files)
+* [Script Outputs](#script-outputs)
+* [Collected Information](#collected-information)
+* [Development](#development)
+* [Framework Notes](#framework-notes)
+
+## Supported Frameworks
+
 The following frameworks are supported:
 
 * [WFOMC / Forclift](https://dtai.cs.kuleuven.be/software/wfomcForclift)
@@ -13,7 +25,6 @@ The following frameworks are supported:
 * [LJT](https://www.ifis.uni-luebeck.de/index.php?id=590&L=0)
   * Engines: `fojt.LiftedJTEngine` (Lifted Junction Tree Algorithm, default), `jt.JTEngine` (Standard Junction Tree Algorithm) + standard GCFOVE engines(`ve.VarElimEngine`, `fove.LiftedVarElim`)
 * [BLOG](https://bayesianlogic.github.io/) (*is included but was not implemented until the end because of different BLOG syntax between raw BLOG and GCFOVE - partly untested and buggy*)
-
 
 ## Operating the script
 
@@ -240,7 +251,7 @@ The **Forclift** implementation was modified in order to facilitate the postproc
 
 ### GCFOVE
 
-The GCFOVE jar is based on a decompiled build by Tanya. 
+The GCFOVE jar is based on a de- and recompiled build. 
 
 One of the key changes is in the class `LiftedVarElim.java`. The following lines of the `shatter` where replaced:
 

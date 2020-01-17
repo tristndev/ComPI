@@ -1,7 +1,14 @@
 # `TranslateBLOG` README
 
-TranslateBLOG was developed as a means to translate BLOG model files into other different model representations.
-It is based on the GCFOVE implementation by [GCFOVE](https://dtai.cs.kuleuven.be/software/gcfove), mainly using their parser for BLOG files. 
+*TranslateBLOG* was developed as a means to translate BLOG model files into other equivalent model representations.
+It is based on the [GCFOVE implementation](https://dtai.cs.kuleuven.be/software/gcfove) by Taghipour, mainly using their parser for BLOG files. 
+
+## Content
+
+* [Supported output formats](#supported-output-formats)
+* [Tool usage](#tool-usage)
+* [Special operating modes](#special-operating-modes)
+* [Query and Evidence Creation](#query-and-evidence-creation)
 
 ## Supported output formats
 
@@ -14,13 +21,15 @@ The supported output formats are:
 * Dynamic MLNs - **dynamic mode (see below for more information)** as used by:
   * [UUMLN](https://www.uni-ulm.de/en/in/ki/inst/alumni/thomas-geier/)
 
-* Dynamic BLOGs - as used by Marcel Gehrke (from UzL) for his Dynamic Junction Tree inference algorithm.
+* Dynamic BLOGs - as used in the [Dynamic Junction Tree](http://ifis.uni-luebeck.de/index.php?id=483&L=0) algorithm
 
 
 ## Tool usage {.tabset .tabset-fade .tabset-pills}
 The JAR can easily be started with a `java -jar TranslateBLOG.jar` command:
 
 ```
+$ java -jar TranslateBLOG.jar
+
 >> TranslateBLOG - File converter
 >  Usage: java -jar TranslateBLOG.jar [args] [<file> | <directory>]
 Optional flags:
@@ -45,15 +54,16 @@ Optional flags:
 - `-v`, `--[no]verbose`: Prints info aboout every world sampled (function taken from the original GCFOVE)
 - `-g`, `--[no]debug`: Debug mode; print model, evidence and queries (taken form original GCFOVE)
 
+## Special operating modes
 
-## Batch Mode
+### Batch Mode
 
 When specifying a directory as input (i.e. as last argument) TranslateBLOG searches that directory for `*.blog` files and converts each of them to the specified target format. 
 
 The translated model files are saved in a newly created directory: `path/to/input/_TranslateBLOG`
 
 
-## Dynamic Mode
+### Dynamic Mode
 
 When specifying dynamic MLNs as output format via the `-f dmln` argument, the tool follows a special workflow:
 
@@ -97,8 +107,10 @@ When specifying dynamic MLNs as output format via the `-f dmln` argument, the to
   In dynamic mode two output files are created per input file: one `.mln` file for UUMLN, and one `.blog` file for the DJT algorithm.
   They are both stored under the same filename in the output directory `path/to/inputdirectory/_TranslateBLOG`
 
+## Query and Evidence Creation
 
-## Query Specification & Creation 
+
+### Query Specification & Creation 
 
 Note that the specification above still misses information on which query atoms should be included. 
 If nothing is specified, all possible query atoms are created and appended to the final outputfile.
