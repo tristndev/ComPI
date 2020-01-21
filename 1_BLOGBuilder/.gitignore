@@ -9,6 +9,20 @@ buildNumber.properties
 .mvn/timing.properties
 .mvn/wrapper/maven-wrapper.jar
 
+bin/
+.settings
+.project
+
+/out/*.blog
+**/out/**/*.blog
+/out/*.csv
+**/out/**/*.csv
+/out/*.txt
+**/out/**/*.txt
+
+/out/_TranslateBLOG/*.mln
+**/out/**/*.mln
+
 
 
 # Compiled class file
