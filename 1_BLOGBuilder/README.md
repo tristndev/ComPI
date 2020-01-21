@@ -98,9 +98,24 @@ Import the source files as a Maven project to Eclipse (File -> Import -> Maven /
 
 ## Implementation of World Filling Strategies
 
+There are two key class types needed for extending *BLOGBuilder* with a custom logic on how models are created:  
+
+* `*Factories` contain the actual creation of elements (logvars, randvars, parfactors, ...) in the models, based on the specification of parameters (e.g., number of logvars/randvars/parfactors, ...). 
+* `*Strategies` can be seen as model creation control units: They contain the setting of parameters, accordingly creating worlds and calling the factories' methods to populate said worlds.
+
+Followingly, the already implemented strategies and factories are listed and shortly explained.
+
 ### Strategies
 
+Strategies are implemented as sub-classes of the abstract super class `WorldCreationStrategy`. For the strategies, the underlying key ideas will be outlined. To reconstruct the exact logic of world creation, look at the [factory descriptions](#factories) below.
 
+* **`RandomSampleStrategy`**: Create a world with a specified number of randomly created objects, that are in random relations. Mostly used for the generation of base worlds.
+* **`LogVarAugmentationStrategy`**: Augment a given base world by adding LogVars.
+* **`RandVarAugmentationStrategy`**: Augment a given base world by adding RandVars.
+* **`FactorAugmentationStrategy`**: Augment a given base world by adding parfactors.
+* **`ParallelFactorArgsAugmentationStrategy`**: Augment a given base world by increasing the number of arguments for the existing factors (in parallel for all factors).
+* **`IncByWorldStrategy`**: Augment a given base world by duplicating and connecting initial base world with duplicate.
+* **`RandVarOccAugmStrategy`**: Augment a given base world by increasing the number of times the randvars occur as arguments for the parfactors.
 
 ### Factories
 

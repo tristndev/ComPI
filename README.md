@@ -3,7 +3,7 @@
 
 In the absence of available benchmark datasets for probabilistic relational inference algorithms, we propose an extendable benchmarking suite named *ComPI* (**Com**pare **P**robabilistic **I**nference) that contains modules for automatic model generation, model translation and inference benchmarking. 
 
-*ComPI* exists of the following modules (as outlined in the figure below):
+*ComPI* consists of the following modules (as outlined in the figure below):
 
 * **[BLOGBuilder](#blogbuilder)** - A (BLOG) model generator
 * **[TranslateBLOG](#translateblog)** - A model translator (from BLOG to other formats)
@@ -55,7 +55,7 @@ More detailed information on *PInBench* is available in the README included in t
 
 The following frameworks are supported. Please note, that for licensing reasons you might need to download them from the respective original repositories. 
 
-* [WFOMC / Forclift](https://dtai.cs.kuleuven.be/software/wfomcForclift) (included as `forclift-3.1.jar` with some changes in the output, see *PInBench* README for more details)
+* [WFOMC / Forclift](https://dtai.cs.kuleuven.be/software/wfomc) (included as `forclift-3.1.jar` with some changes in the output, see *PInBench* README for more details)
 * [GCFOVE](https://dtai.cs.kuleuven.be/software/gcfove) (*not* included. Needs to be supplied in the base directory as `gcfove.jar`)
   * Engines: `fove.LiftedVarElim`, `ve.VarElimEngine`
 * [Alchemy 2.0](https://code.google.com/archive/p/alchemy-2/) (*just runs on Linux systems* - *not* included. Needs to be supplied in the base directory as `Alchemy_liftedinfer`)
@@ -125,6 +125,10 @@ Running the script produces the following output files:
 
 ## Development
 
-The modules of ComPI were developed with easy maintainability and custom extendibility in mind. Accordingly, the source code should have lots of explaining comments making it easily understandable.
+The modules of *ComPI* were developed with easy maintainability and custom extendibility in mind. Accordingly, the source code should have lots of explaining comments making it easily understandable.
 
 Module-specific remarks regarding their individual development and contributions are made in the respective detailed README files.
+
+## Licenses
+
+Since some of the modules of *ComPI* are based on previous work of different authors, information on licenses and credits can be found in the individual subdirectories.

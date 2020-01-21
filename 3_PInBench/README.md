@@ -12,19 +12,22 @@ It facilitates timekeeping for multi-file, multi-query runs which allows compari
 * [Collected Information](#collected-information)
 * [Development](#development)
 * [Framework Notes](#framework-notes)
+* [Licensing and Credits](#licensing-and-credits)
 
 ## Supported Frameworks
 
-The following frameworks are supported:
+The following frameworks are supported. Please note, that for licensing reasons you might need to download them from the respective original repositories. 
 
-* [WFOMC / Forclift](https://dtai.cs.kuleuven.be/software/wfomcForclift)
-* [GCFOVE](https://dtai.cs.kuleuven.be/software/gcfove)
+* [WFOMC / Forclift](https://dtai.cs.kuleuven.be/software/wfomc) (included as `forclift-3.1.jar` with some changes in the output, see [below](#framework-notes))
+* [GCFOVE](https://dtai.cs.kuleuven.be/software/gcfove) (*not* included. Needs to be supplied in the base directory as `gcfove.jar`)
   * Engines: `fove.LiftedVarElim`, `ve.VarElimEngine`
-* [Alchemy 2.0](https://code.google.com/archive/p/alchemy-2/) (*just runs on Linux systems, see Framework Notes section*)
+* [Alchemy 2.0](https://code.google.com/archive/p/alchemy-2/) (*just runs on Linux systems* - *not* included. Needs to be supplied in the base directory as `Alchemy_liftedinfer`. Compilation notes [below](#framework-notes))
   * Engines: `ptpe`, `lis`, `lvg`
-* [LJT](https://www.ifis.uni-luebeck.de/index.php?id=590&L=0)
+* [LJT](https://www.ifis.uni-luebeck.de/index.php?id=590&L=0) (included as `fojt.jar`)
   * Engines: `fojt.LiftedJTEngine` (Lifted Junction Tree Algorithm, default), `jt.JTEngine` (Standard Junction Tree Algorithm) + standard GCFOVE engines(`ve.VarElimEngine`, `fove.LiftedVarElim`)
-* [BLOG](https://bayesianlogic.github.io/) (*is included but was not implemented until the end because of different BLOG syntax between raw BLOG and GCFOVE - partly untested and buggy*)
+* [BLOG](https://bayesianlogic.github.io/) (*supported but was not implemented until the end because of different BLOG syntax between raw BLOG and GCFOVE - partly untested and buggy*) - not included
+
+> Feel free to contact us, if you need assistance in locating or compiling the source files.
 
 ## Operating the script
 
@@ -288,3 +291,35 @@ Also, if errors occur, you might need to give it 'executable' rights via right c
 ### (Lifted) Junction Tree
 
 Nothing was changed in the Junction Tree implementation developed at IFIS of University Lübeck, downloaded from the webpage linked above.
+
+## Licensing and Credits
+
+The following software (which is included to this repository) is licensed on its own:
+
+* The integral parts of *PInBench*:
+  Licensed under Apache License 2.0 - [Link to license](LICENSE.md)
+
+* [WFOMC / Forclift](https://dtai.cs.kuleuven.be/software/wfomc):
+  Licensed under Apache License 2.0 - [Link to license](https://github.com/UCLA-StarAI/Forclift/blob/master/LICENSE)
+
+* [LJT](https://www.ifis.uni-luebeck.de/index.php?id=590&L=0)- [Link to license](https://www.ifis.uni-luebeck.de/index.php?id=590&L=0):
+
+  ```
+  (c) 2016, 2017, 2018, 2019 Institute of Information Systems (IFIS) Universität zu Lübeck. All rights reserved.
+  
+  Redistribution and use in binary forms, with or without modification, are permitted provided that the following conditions are met:
+  
+  Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution. The name of the author may not be used to endorse or promote products derived from this software without specific prior written permission.
+  
+  THIS SOFTWARE IS PROVIDED "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  
+  Third Party Software: LJT-Engine uses the BLOG inference system by Brian Milch et.al. that is distributed under its own license. Similar to BLOG, the LJT Engine also includes other third-party software. These third-party packages have their own licenses in the license folder.
+  
+  A modified version of the CUP v0.11b parser generator
+  A modified version of the JFLex 1.6.0 lexical analyzer generator
+  The JAMA 1.0.3 matrix package
+  The JUnit 4.10 unit testing framework [http://www.eclipse.org/legal/epl-v10.html] (source code available from junit.org)
+  This distribution also includes the GC-FOVE system by Nima Taghipour.
+  ```
+
+  
