@@ -1,0 +1,55 @@
+type Person;
+type Publication;
+
+guaranteed Person p[1];
+guaranteed Publication q[1];
+
+
+random Boolean DoR(Timestep, Person);
+random Boolean Hot(Timestep, Person);
+random Boolean AttC(Timestep, Person);
+random Boolean Pub(Timestep, Person, Publication);
+
+// Single Timestep Tables
+parfactor Person X. MultiArrayPotential[[8, 7, 6, 5, 4, 3, 2, 1]]
+	(Hot(@1, X), AttC(@1, X), DoR(@1, X));
+
+parfactor Person X, Publication P. MultiArrayPotential[[8, 7, 6, 5, 4, 3, 2, 1]]
+	(Hot(@1, X), AttC(@1, X), Pub(@1, X,P));
+
+// Timestep Transition Tables 
+parfactor Person X, Publication P. MultiArrayPotential[[8, 7, 6, 5, 4, 3, 2, 1, 8, 7, 6, 5, 4, 3, 2, 1]]
+    (Hot(@1, X), Hot(@2, X), Pub(@1, X,P), AttC(@1, X));
+
+
+/* 
+[Query Spec]
+{
+  "absMaxTime": 18,
+  "maxTimeInc": 4,
+  "timeSkip": 5,
+  "timeDeltas": [5,0,-5],
+  "includeVars": [],
+  "queryIntervalHandling" : "cutoff"
+}
+[/Query Spec]
+*/
+
+/*
+[Evidence Spec]
+[
+	{
+	  "randvar": "DoR",
+	  "evidenceCoverage": 1.0,
+	  "groupCount": 10,
+	  "percStartTrue": 0.4,
+	  "probF2F": 0.2,
+	  "probT2T": 0.3,
+	  "percStartShown": 0.30,
+	  "probShown2Shown": 0.4,
+	  "probHide2Hide": 0.5,
+	  "flipProb": 0.5
+ 	}
+ 	]
+[/Evidence Spec]
+*/
