@@ -173,9 +173,20 @@ class BenchmarkEngine(object):
         Method that finds all model files with the given extension in the given directory
         """
         files = glob.glob(self.directory + "/*." + self.extension)
-        logging.info(str.format("Found {} {} file(s) in the selected directory: '{}'", len(files), self.extension,
+
+        def natural_sort(l): 
+            convert = lambda text: int(text) if text.isdigit() else text.lower() 
+            alphanum_key = lambda key: [ convert(c) for c in re.split('([0-9]+)', key) ] 
+            return sorted(l, key = alphanum_key)
+        
+        try: 
+            sorted_files = natural_sort(files)
+        except:
+            sorted_files = files
+
+        logging.info(str.format("Found {} {} file(s) in the selected directory: '{}'", len(sorted_files), self.extension,
                                 self.directory))
-        return sorted(files)
+        return sorted_files
 
     @abc.abstractmethod
     def extract_queries(self, file_string, filename, engine):
