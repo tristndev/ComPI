@@ -477,7 +477,6 @@ class ForcliftEngine(BenchmarkEngine):
         :param filename: filename of model file to use inference on
         :param writer_obj: writer object to write the extracted information
         """
-
         cmd = ['java', '-jar', self.jar, '--margs', filename]
 
         std_out, std_err = Query.run(cmd)
@@ -489,8 +488,10 @@ class ForcliftEngine(BenchmarkEngine):
                 dict['filename'] = filename
                 writer_obj.writerow(dict)
             self.write_status_to_overview(filename, "all ok")
+            self.status_counts['success'] += 1
         else:
             self.write_status_to_overview(filename, self.determine_error_type(std_err))
+            self.status_counts['errors'] += 1
             logging.error("Error in script execution. Output:\n" + std_err.replace("\r\n\tat", "\n"))
 
     def check_for_error(self, std_out, std_err):
