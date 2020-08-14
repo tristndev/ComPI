@@ -1,0 +1,46 @@
+type LV1;
+guaranteed LV1 x1x[1000];
+type LV2;
+guaranteed LV2 x2x[1000];
+
+
+random Boolean RV1(LV1);
+random Boolean RV2;
+random Boolean RV3(LV2);
+random Boolean RV4;
+
+
+// Factor #1
+parfactor LV1 A. MultiArrayPotential[[0.42, 0.19, 0.61, 0.40]](RV1(A),RV2);
+// Factor #2
+parfactor LV2 A. MultiArrayPotential[[0.83, 0.83, 0.32, 0.79]](RV3(A),RV4);
+// Factor #3
+parfactor LV1 A, LV2 B. MultiArrayPotential[[0.62, 0.35, 0.17, 0.73]](RV1(A),RV3(B));
+
+
+query RV1(x1x1);
+query RV2;
+query RV3(x2x1);
+query RV4;
+/*
+ * ### BLOGBuilder SUMMARY ###
+ * >> Spec:
+ * 	logVarCount: 2
+ * 	randVarCount: 4 
+ * 	factorCount: 3 
+ * 	maxFactorArgs: 2
+ * 	maxRandVarArgs: 2 
+ * 	maxRandVarOccurences: 4
+ * >> Model:
+ * 	real logVarCount: 2 
+ * 	real randVarCount: 4 
+ * 	real factorCount: 3
+ * 	real maxRandVarOccurences: 2 
+ * 	allMentioned: true
+ * >> RandVar co-occurrence matrix:
+ *       RV1  RV2  RV3  RV4
+ *   RV1   2    1    1    0 
+ *   RV2   1    1    0    0 
+ *   RV3   1    0    2    1 
+ *   RV4   0    0    1    1 
+ */

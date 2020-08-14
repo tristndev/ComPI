@@ -1,0 +1,192 @@
+type LV1;
+guaranteed LV1 x1x[10];
+type LV2;
+guaranteed LV2 x2x[10];
+type LV3;
+guaranteed LV3 x3x[10];
+type LV4;
+guaranteed LV4 x4x[10];
+type LV5;
+guaranteed LV5 x5x[10];
+type LV6;
+guaranteed LV6 x6x[10];
+type LV7;
+guaranteed LV7 x7x[10];
+type LV8;
+guaranteed LV8 x8x[10];
+type LV9;
+guaranteed LV9 x9x[10];
+type LV10;
+guaranteed LV10 x10x[10];
+type LV11;
+guaranteed LV11 x11x[10];
+type LV12;
+guaranteed LV12 x12x[10];
+type LV13;
+guaranteed LV13 x13x[10];
+type LV14;
+guaranteed LV14 x14x[10];
+type LV15;
+guaranteed LV15 x15x[10];
+type LV16;
+guaranteed LV16 x16x[10];
+type LV17;
+guaranteed LV17 x17x[10];
+
+
+random Boolean RV1(LV1);
+random Boolean RV2;
+random Boolean RV3(LV2);
+random Boolean RV4;
+random Boolean RV5(LV3);
+random Boolean RV6;
+random Boolean RV7(LV4);
+random Boolean RV8;
+random Boolean RV9(LV5);
+random Boolean RV10;
+random Boolean RV11(LV6);
+random Boolean RV12;
+random Boolean RV13(LV7);
+random Boolean RV14;
+random Boolean RV15(LV8);
+random Boolean RV16;
+random Boolean RV17(LV9);
+random Boolean RV18;
+random Boolean RV19(LV10);
+random Boolean RV20;
+random Boolean RV21(LV11);
+random Boolean RV22;
+random Boolean RV23(LV12);
+random Boolean RV24;
+random Boolean RV25(LV13);
+random Boolean RV26;
+random Boolean RV27(LV14);
+random Boolean RV28;
+random Boolean RV29(LV15);
+random Boolean RV30;
+random Boolean RV31(LV16);
+random Boolean RV32;
+random Boolean RV33(LV17);
+random Boolean RV34;
+
+
+// Factor #1
+parfactor LV1 A. MultiArrayPotential[[0.34, 0.83, 0.44, 0.65]](RV1(A),RV2);
+// Factor #2
+parfactor LV2 A. MultiArrayPotential[[0.71, 0.77, 0.42, 0.56]](RV3(A),RV4);
+// Factor #3
+parfactor LV1 A, LV2 B. MultiArrayPotential[[0.24, 0.03, 0.80, 0.63]](RV1(A),RV3(B));
+// Factor #4
+parfactor LV3 A. MultiArrayPotential[[0.46, 0.40, 0.86, 0.91]](RV5(A),RV6);
+// Factor #5
+factor  MultiArrayPotential[[0.63, 0.97, 0.10, 0.17]](RV2,RV6);
+// Factor #6
+parfactor LV4 A. MultiArrayPotential[[0.32, 0.76, 0.58, 0.59]](RV7(A),RV8);
+// Factor #7
+parfactor LV4 A. MultiArrayPotential[[0.66, 0.48, 0.99, 0.43]](RV4,RV7(A));
+// Factor #8
+parfactor LV5 A. MultiArrayPotential[[0.38, 0.74, 0.73, 0.44]](RV9(A),RV10);
+// Factor #9
+factor  MultiArrayPotential[[0.07, 0.28, 0.55, 0.89]](RV2,RV10);
+// Factor #10
+parfactor LV6 A. MultiArrayPotential[[0.04, 0.50, 0.07, 0.20]](RV11(A),RV12);
+// Factor #11
+parfactor LV3 A, LV6 B. MultiArrayPotential[[0.67, 0.63, 0.82, 0.67]](RV5(A),RV11(B));
+// Factor #12
+parfactor LV7 A. MultiArrayPotential[[0.78, 0.99, 0.32, 0.48]](RV13(A),RV14);
+// Factor #13
+parfactor LV7 A. MultiArrayPotential[[0.58, 0.46, 0.10, 0.52]](RV4,RV13(A));
+// Factor #14
+parfactor LV8 A. MultiArrayPotential[[0.16, 0.02, 0.40, 0.26]](RV15(A),RV16);
+// Factor #15
+parfactor LV8 A, LV7 B. MultiArrayPotential[[0.61, 0.30, 0.78, 0.43]](RV13(B),RV15(A));
+// Factor #16
+parfactor LV9 A. MultiArrayPotential[[0.50, 0.51, 0.09, 0.10]](RV17(A),RV18);
+// Factor #17
+parfactor LV2 A. MultiArrayPotential[[0.42, 0.72, 0.10, 0.98]](RV3(A),RV18);
+// Factor #18
+parfactor LV10 A. MultiArrayPotential[[0.08, 0.52, 0.07, 0.24]](RV19(A),RV20);
+// Factor #19
+parfactor LV10 A. MultiArrayPotential[[0.55, 0.02, 0.15, 0.82]](RV10,RV19(A));
+// Factor #20
+parfactor LV11 A. MultiArrayPotential[[0.98, 0.13, 0.37, 0.20]](RV21(A),RV22);
+// Factor #21
+parfactor LV11 A, LV5 B. MultiArrayPotential[[0.36, 0.28, 0.17, 0.06]](RV9(B),RV21(A));
+// Factor #22
+parfactor LV12 A. MultiArrayPotential[[0.75, 0.32, 0.67, 0.60]](RV23(A),RV24);
+// Factor #23
+parfactor LV2 A. MultiArrayPotential[[0.40, 0.23, 0.78, 0.34]](RV3(A),RV24);
+// Factor #24
+parfactor LV13 A. MultiArrayPotential[[0.64, 0.38, 0.12, 0.29]](RV25(A),RV26);
+// Factor #25
+factor  MultiArrayPotential[[0.89, 0.38, 0.83, 0.78]](RV10,RV26);
+// Factor #26
+parfactor LV14 A. MultiArrayPotential[[0.08, 0.51, 0.44, 0.01]](RV27(A),RV28);
+// Factor #27
+parfactor LV5 A. MultiArrayPotential[[0.20, 0.33, 0.79, 0.28]](RV9(A),RV28);
+// Factor #28
+parfactor LV15 A. MultiArrayPotential[[0.52, 0.66, 0.52, 0.22]](RV29(A),RV30);
+// Factor #29
+parfactor LV8 A, LV15 B. MultiArrayPotential[[0.70, 0.42, 0.19, 0.77]](RV15(A),RV29(B));
+// Factor #30
+parfactor LV16 A. MultiArrayPotential[[0.96, 0.76, 0.95, 0.74]](RV31(A),RV32);
+// Factor #31
+parfactor LV4 A. MultiArrayPotential[[0.06, 0.95, 0.29, 0.35]](RV7(A),RV32);
+// Factor #32
+parfactor LV17 A. MultiArrayPotential[[0.73, 0.87, 0.91, 0.40]](RV33(A),RV34);
+// Factor #33
+parfactor LV17 A. MultiArrayPotential[[0.20, 0.66, 0.01, 0.41]](RV16,RV33(A));
+
+
+query RV1(x1x1);
+query RV2;
+query RV3(x2x1);
+query RV4;
+query RV5(x3x1);
+query RV6;
+query RV7(x4x1);
+query RV8;
+query RV9(x5x1);
+query RV10;
+query RV11(x6x1);
+query RV12;
+query RV13(x7x1);
+query RV14;
+query RV15(x8x1);
+query RV16;
+query RV17(x9x1);
+query RV18;
+query RV19(x10x1);
+query RV20;
+query RV21(x11x1);
+query RV22;
+query RV23(x12x1);
+query RV24;
+query RV25(x13x1);
+query RV26;
+query RV27(x14x1);
+query RV28;
+query RV29(x15x1);
+query RV30;
+query RV31(x16x1);
+query RV32;
+query RV33(x17x1);
+query RV34;
+/*
+ * ### BLOGBuilder SUMMARY ###
+ * >> Spec:
+ * 	logVarCount: 17
+ * 	randVarCount: 34 
+ * 	factorCount: 33 
+ * 	maxFactorArgs: 2
+ * 	maxRandVarArgs: 2 
+ * 	maxRandVarOccurences: 4
+ * >> Model:
+ * 	real logVarCount: 17 
+ * 	real randVarCount: 34 
+ * 	real factorCount: 33
+ * 	real maxRandVarOccurences: 4 
+ * 	allMentioned: true
+ * >> RandVar co-occurrence matrix:
+ *    Not created due to count of RandVars > 30.
+ */

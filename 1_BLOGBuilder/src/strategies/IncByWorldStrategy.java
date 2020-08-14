@@ -26,7 +26,7 @@ public class IncByWorldStrategy extends WorldCreationStrategy {
 	int maxRandVarOccurrences = 4;
 	int maxRandVarArgs = 2;
 
-	int incrementCount = 40;
+	int incrementCount = 20;
 	
 	@Override
 	public void start() {

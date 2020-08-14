@@ -1,0 +1,15 @@
+Here comes the sun.
+	{
+	smallWorlds=true; 
+	domainSizes=
+		[10, 100, 1000]
+
+	allQueries=true; 
+	logVarCount=1; 
+	randVarCount=2; 
+	factorCount=1; 
+	maxFacArgs=2; 
+	maxRandVarOccurrences=4; 
+	maxRandVarArgs=2; 
+	incrementCount=20; 
+	}
