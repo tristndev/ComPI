@@ -122,7 +122,7 @@ class BenchmarkEngine(object):
         try: 
             from Minibot.minibot import MiniBot
         except:
-            print("Minibot ")
+            print("No final Telegram message sent. (Could not import MiniBot Telegram)")
         else:
             mb = MiniBot(False)
             msg = "Current PInBench run finished!\n"\
