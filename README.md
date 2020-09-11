@@ -1,5 +1,6 @@
 # ComPI <img src="img/CompiLogo.png" align="right" height="75">
 
+[![DOI:10.1007/978-3-030-57855-8_15](https://zenodo.org/badge/DOI/10.1007/978-3-030-57855-8_15.svg)](https://doi.org/10.1007/978-3-030-57855-8_15)
 
 In the absence of available benchmark datasets for probabilistic relational inference algorithms, we propose an extendable benchmarking suite named *ComPI* (**Com**pare **P**robabilistic **I**nference) that contains modules for automatic model generation, model translation and inference benchmarking. 
 
