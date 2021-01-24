@@ -74,12 +74,12 @@ class BenchmarkEngine(object):
         logging.info("Initialising output files: [%s] and [%s].", log_file, csv_file)
 
         # Create output csv (with times, probabilities, ...)
-        output = open(csv_file, 'wb')
+        output = open(csv_file, 'w')
         writer = csv.DictWriter(output, dialect='excel', fieldnames=self.csv_cols, lineterminator='\n', delimiter=",")
         writer.writeheader()
 
         # Create output log (for file overview)
-        self.ov_file = open(overview_file, 'wb')
+        self.ov_file = open(overview_file, 'w')
 
         # -- 2. Find model files and iterate over them
         files = self.find_files_in_dir()
@@ -1340,6 +1340,8 @@ class Query(object):
         try:
             timer.start()
             stdout, stderr = proc.communicate()
+            stdout = stdout.decode('UTF-8')
+            stderr = stderr.decode('UTF-8')
         finally:
             timer.cancel()
 

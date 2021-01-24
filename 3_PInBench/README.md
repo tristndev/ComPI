@@ -31,7 +31,7 @@ The following frameworks are supported. Please note, that for licensing reasons 
 
 ## Operating the script
 
-The script was written using *Python 2.7*. 
+The script should work in both Python 2.* and Python 3.*.
 It can be executed using a terminal, i.e. with `python PInBench.py`.
 Help can be displayed using the extra argument `-h`:
 
