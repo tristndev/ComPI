@@ -171,11 +171,11 @@ Here is a working example of the JSON definition (belonging to the model file sh
   E.g. `timeDeltas := [0,5,-5]` leads to queries: `..., Hot(@10, @5), Hot(@10, @10), Hot (@10, @15), ...`  
   Queries are only ever produced if both query timesteps ('from' and 'to') are within the specified boundaries (i.e. 1 and `absMaxTime`)
 * `queryIntervalHandling` -> *String* of `{"none" (default), "cutoff", "maxTConversion"}` value specifying how query line creation when the specified interval is surpassed (e.g. "further into the future" than `maxTime`).  
-    * `none` - Nothing happens. 
+    * `none` - No transformation. 
     * `cutoff` - Queries that go outside the interval are left out and not created.
     * `maxTConversion` - Queries that go outside the interval (left and right boundary) with their second parameter are converted as if the second parameter was the interval border.  
       Example: Query interval: `[1, 15]`, Query line: `query DoR2(x1, @5, @17)` -> `query(x1, @5, @15)`
-* `includeVars` -> *Array of Strings* listing the RandVars we want to query. All guaranteed objects are included for each type argument of the RandVar. 
+* `includeVars` -> *Array of Strings* listing the RandVars we want to query. All guaranteed objects are included for each type argument of the RandVar. If array is left empty, all randvars are queried.
 * `restrictQueries` -> *Array of JSON Objects* of RandVars and Objects the queries will be restricted to.  
   Those inner JSON objects must have the following tags:
     * `randVar` -> *String* specifying the RandVar name
@@ -253,6 +253,7 @@ The evidence creation itself follows a logic of two two-state-automatons that ca
 * `randvar`: String - RandVar the evidence shall be created for
 * `evidenceCoverage`: Decimal - Percentage of guaranteed objects of `randvar` that will be considered in evidence creation
 * `groupCount`: Integer - Number of groups the covered objects will be divided into
+  * Note: If the `groupCount` is larger than the number of covered objects (= `Number of guaranteed objects * evidenceCoverage`), the number of covered objects is used as group count.
 * `percStartTrue`: Decimal - Percentage of groups that start in `true`-state (Automaton 1)
 * `probF2F`: Decimal - Probability for a `false -> false` transition (Automaton 1)
 * `probT2T`: Decimal - Probability for a `true -> true` transition (Automaton 1)

@@ -9,19 +9,21 @@ import java.util.regex.Pattern;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import blogConv.DJTEvidenceFactory;
 import blogConv.ModelWrapper;
+import blogConv.EvidenceFactories.DJTDynamicEvidenceFactory;
 import blogSpecs.BLOGEvidenceSpecParser;
 import blogSpecs.EvidenceSpec;
 
 class DJTEvidenceFactoryTest {
 
 	private static ModelWrapper mw1;
-	private static DJTEvidenceFactory ef;
+	private static DJTDynamicEvidenceFactory ef;
 
 	private static ArrayList<EvidenceSpec> specs;
+	
+	private int maxTime = 20;
 
-	DJTEvidenceFactory evFacLoader(String path, int maxTime) {
+	DJTDynamicEvidenceFactory evFacLoader(String path, int maxTime) {
 		TestHelper th = new TestHelper();
 		ModelWrapper mw = th.getModelWrapperForFile(path);
 		System.out.println("Model Wrapper(s) loaded for file "+path);
@@ -30,7 +32,7 @@ class DJTEvidenceFactoryTest {
 		ArrayList<EvidenceSpec> specs = parser.getEvidenceSpecs();
 		System.out.println("EvidenceSpec(s) parsed & loaded.");
 		
-		return new DJTEvidenceFactory(mw, specs, maxTime); 
+		return new DJTDynamicEvidenceFactory(mw, specs, maxTime); 
 	}
 	
 	@BeforeAll
@@ -44,7 +46,7 @@ class DJTEvidenceFactoryTest {
 		System.out.println("EvidenceSpec(s) parsed & loaded.");
 		
 		int maxTime = 20;
-		ef = new DJTEvidenceFactory(mw1, specs, maxTime);
+		ef = new DJTDynamicEvidenceFactory(mw1, specs, maxTime);
 		System.out.println("Evidence Factory instantiated.");
 	}
 
@@ -119,12 +121,12 @@ class DJTEvidenceFactoryTest {
 	}
 	
 	
-	//@Test
+	@Test
 	void testGroupDistribution() {
 		System.out.println(">>> Group Distribution Test:");
-		
+		// Take first spec
 		EvidenceSpec spec = specs.get(0);
-		System.out.println("# Groups: "+ef.getMatrixSize(spec)[0]);
+		System.out.println("# Groups: "+ef.getMatrixSize(spec)[0]+ " with " + ef.calcNumberOfCoveredObjects(spec) +" objects covered");
 		ef.getMatrixSize(spec);
 		ArrayList<ArrayList<String>> groups = ef.distributeGuarObjsToGroups(spec);
 		
@@ -134,15 +136,16 @@ class DJTEvidenceFactoryTest {
 		}
 	}
 	
-	//@Test
+	@Test
 	void testLineCreation() {
-		System.out.println(ef.createEvidenceLines(false));
+		System.out.println("Printing created evidence lines...");
+		System.out.println(ef.createEvidenceLines(maxTime));
 	}
 	
 	@Test
 	void testBoolFlip() {
-		DJTEvidenceFactory ev100 = evFacLoader("tests/res/boolFlip100.blog", 20);
-		DJTEvidenceFactory ev70 = evFacLoader("tests/res/boolFlip70.blog", 20);
+		DJTDynamicEvidenceFactory ev100 = evFacLoader("tests/res/boolFlip100.blog", 20);
+		DJTDynamicEvidenceFactory ev70 = evFacLoader("tests/res/boolFlip70.blog", 20);
 		
 		int n = 100;
 		

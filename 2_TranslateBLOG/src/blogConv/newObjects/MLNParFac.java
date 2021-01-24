@@ -5,8 +5,8 @@ import java.util.Locale;
 
 import blog.LogicalVar;
 import blog.Term;
-import blogConv.MLNFileFactory;
 import blogConv.ModelWrapper;
+import blogConv.fileFactories.MLNFileFactory;
 import fove.Parfactor;
 
 public class MLNParFac {

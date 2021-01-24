@@ -18,12 +18,15 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
 
-import blogConv.AbstrFileFactory;
-import blogConv.DJTFileFactory;
-import blogConv.DMLNFileFactory;
 import blogConv.DJTQueryFactory;
-import blogConv.MLNFileFactory;
 import blogConv.ModelWrapper;
+import blogConv.EvidenceFactories.AbstrEvidenceFactory;
+import blogConv.EvidenceFactories.DMLNEvidenceFactory;
+import blogConv.fileFactories.AbstrDynamicFileFactory;
+import blogConv.fileFactories.AbstrFileFactory;
+import blogConv.fileFactories.DJTFileFactory;
+import blogConv.fileFactories.DMLNFileFactory;
+import blogConv.fileFactories.MLNFileFactory;
 import common.Util;
 import common.cmdline.BooleanOption;
 import common.cmdline.Parser;
@@ -198,9 +201,10 @@ public class Main {
 
 		// ## FILE FACTORIES ##
 
-		AbstrFileFactory fileFac;
-		String outPath = "";
+				String outPath = "";
 		if (Main.outputFormat.toLowerCase().equals("mln")) {
+			AbstrFileFactory fileFac;
+
 			System.out.println(">  Chosen output format: 'mln' (default)");
 			outPath = generateOutputPath(filename, "mln", targetDir);
 			fileFac = new MLNFileFactory(mw, Main.evidence);
@@ -208,29 +212,34 @@ public class Main {
 			fileFac.saveFile(outPath);
 			System.out.println(filename + " done.");
 		} else if (Main.outputFormat.toLowerCase().equals("dmln")) {
+			AbstrDynamicFileFactory fileFac;
 			System.out.println(">  Chosen output format: 'dmln' (dynamic MLN for UUMLN)");
 
-			// File 1: DMLN file
 			String tempPath = generateOutputPath(filename, "mln", targetDir);
+			
+			// File 1: DMLN file
 			outPath = generateOutputPath(filename, "mln", targetDir + "/MLN");
 			createOutputDir("MLN", tempPath);
 			fileFac = new DMLNFileFactory(mw);
 			fileFac.saveFile(outPath);
-
+			
 			// File 2: BLOG file for DJT application
+			AbstrEvidenceFactory evidenceFactory = fileFac.getEvidenceFactory();
 			createOutputDir("BLOG_dyn", tempPath);
 			outPath = generateOutputPath(filename, "blog", targetDir + "/BLOG_dyn");
-			fileFac = new DJTFileFactory(mw, true);
+			fileFac = new DJTFileFactory(mw, true, evidenceFactory);
 			fileFac.saveFile(outPath);
 
 			// File 3: BLOG file for static DJT
+			evidenceFactory = fileFac.getEvidenceFactory();
 			createOutputDir("BLOG_stat", tempPath);
 			outPath = generateOutputPath(filename, "blog", targetDir + "/BLOG_stat");
-			// TODO: Hand over evidence factory from dynamic file.
-			fileFac = new DJTFileFactory(mw, false, ((DJTFileFactory) fileFac).getEvidenceFactory());
+			// Hand over evidence factory from dynamic file.
+			fileFac = new DJTFileFactory(mw, false, evidenceFactory);
 			fileFac.saveFile(outPath);
 
 			System.out.println(filename + " done.");
+			
 		} else {
 			System.err.println("> Error in creating the right file factory.");
 			System.err.println(String.format("  Chosen outputFormat is: '%s'", Main.outputFormat));

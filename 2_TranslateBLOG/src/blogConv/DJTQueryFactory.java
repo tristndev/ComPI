@@ -12,6 +12,8 @@ import java.util.Set;
 
 import blog.Function;
 import blog.Type;
+import blogConv.EvidenceFactories.AbstrEvidenceFactory;
+import blogConv.EvidenceFactories.DJTDynamicEvidenceFactory;
 import blogSpecs.BLOGQuerySpecParser;
 
 public class DJTQueryFactory {
@@ -70,6 +72,11 @@ public class DJTQueryFactory {
 	 * Construct holding information on RandVars and their argument objects.
 	 */
 	ArrayList<SimpleEntry<String, ArrayList<ArrayList<String>>>> randVarObjectConstr;
+	
+	/**
+	 * Evidence factory used to create evidence lines (needed to check query-evidence-overlap).
+	 */
+	private AbstrEvidenceFactory evidenceFactory;
 
 	/**
 	 * Constructor
@@ -78,10 +85,12 @@ public class DJTQueryFactory {
 	 * @param dynamicTimesteps boolean indicating whether the file should be created
 	 *                         with a) dynamic timesteps (true) or b) statically
 	 *                         rolled out (false)
+	 * @param evidenceFactory  Evidence factory used for evidence creation
 	 */
-	public DJTQueryFactory(ModelWrapper mw, boolean dynamicTimesteps) {
+	public DJTQueryFactory(ModelWrapper mw, boolean dynamicTimesteps, AbstrEvidenceFactory evidenceFactory) {
 		this.file = new File(mw.getFilePath());
 		this.mw = mw;
+		this.evidenceFactory = evidenceFactory;
 
 		this.randVars = mw.getRandVars();
 
@@ -184,7 +193,7 @@ public class DJTQueryFactory {
 	}
 
 	/**
-	 * Removes the 'Tiemstep' argument from a given array of argumements.
+	 * Removes the 'Timestep' argument from a given array of arguments.
 	 * 
 	 * @param argTypes Type array to remove the 'Timestep' argument from
 	 * @return arguments array without 'Timestep' argument
@@ -217,7 +226,8 @@ public class DJTQueryFactory {
 			// first.toString(), first.getGuaranteedObjects().size()));
 
 			for (String obj : firstArgObjList) {
-				list.addAll(createArgumentsArray(prefix + obj.toString() + ", ", randVar,
+				list.addAll(createArgumentsArray(prefix + obj.toString() + ", ", 
+						randVar,
 						new ArrayList<ArrayList<String>>(argTypes.subList(1, argTypes.size())), locMaxTime));
 			}
 		}
@@ -247,28 +257,64 @@ public class DJTQueryFactory {
 					String locRandVar = randVar + String.valueOf(((timesteps[1] == 1) ? 1 : 2));
 					
 					if (timesteps[0] != -1 && timesteps[1] != -1) {
-						if (this.dynamicTimesteps) {
-							// >> Mode 1: Dynamic timesteps -> format 'query randVar(var1,var2,@10,@13)'
-							ret.add(String.format("query %s(%s@%d, @%d);", locRandVar, prefix, timesteps[0], timesteps[1]));
-						} else {
-							// >> Mode 2: Static rollout -> format 'query randVar13(var1,var2)'
-							if (prefix.length() > 0) {
-								// At least 1 Argument query randvar
-								ret.add(String.format("query %s%d(%s);", randVar, timesteps[1],
-										prefix.substring(0, prefix.length() - 2)));
+						if (!this.checkEvidenceOverlap(randVar, timesteps[1], prefix)) {
+							if (this.dynamicTimesteps) {
+								// >> Mode 1: Dynamic timesteps -> format 'query randVar(var1,var2,@10,@13)'
+								ret.add(String.format("query %s(%s@%d, @%d);", locRandVar, prefix, timesteps[0], timesteps[1]));
 							} else {
-								// No argument in query randvar
-								ret.add(String.format("query %s%d;", randVar, timesteps[1]));
-							}
+								// >> Mode 2: Static rollout -> format 'query randVar13(var1,var2)'
+								if (prefix.length() > 0) {
+									// At least 1 Argument query randvar
+									ret.add(String.format("query %s%d(%s);", randVar, timesteps[1],
+											prefix.substring(0, prefix.length() - 2)));
+								} else {
+									// No argument in query randvar
+									ret.add(String.format("query %s%d;", randVar, timesteps[1]));
+								}
 						}
+					}
 					}
 				}
 			}
 		} else {
+			// Simple handling for non-dynamic randvar.
 			prefix = prefix.substring(0, prefix.length() - 2);
 			ret.add(String.format("query %s(%s);", randVar.toString(), prefix));
 		}
 		return ret;
+	}
+
+	/**
+	 * Checks for evidence overlap for a given randvar, timestep and prefix.
+	 * 
+	 * @param randVar to check
+	 * @param targetTimestep to check 
+	 * @param prefix to check (= contains the corresponding object)
+	 * @return true if overlap exists.
+	 */
+	private boolean checkEvidenceOverlap(String randVar, int targetTimestep, String prefix) {
+		String[] prefix_split = prefix.trim().split(",");
+		
+		if (prefix_split.length == 1) {
+			boolean ret;
+			if (prefix_split[0].isEmpty()) {
+				// Empty prefix -> Evidence for RandVars without logvars?
+				String obj = prefix_split[0].trim();
+				ret = this.evidenceFactory.hasEvidenceForRandvarTimestep(randVar, targetTimestep, obj);
+			} else {
+				// Standard prefix -> Evidence for randVars with 1 logvar.
+				String obj = prefix_split[0].trim();
+				ret = this.evidenceFactory.hasEvidenceForRandvarTimestep(randVar, targetTimestep, obj);
+				//System.out.println(String.format(">> Checked Evidence Overlap for randvar '%s' @ t%d with object '%s': %b", randVar, targetTimestep, obj, ret));				
+			}
+			return ret;
+		} else if (prefix_split.length > 1) {
+			// No evidence for randvars with more than 1 argument logvar.
+			return false;
+		} else {
+			System.out.println("Prefix length is 0! This should not have happened.");
+			return false;
+		} 		
 	}
 
 	/**

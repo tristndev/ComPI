@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import blogConv.DJTQueryFactory;
 import blogConv.ModelWrapper;
+import blogConv.EvidenceFactories.DJTDynamicEvidenceFactory;
 
 public class DJTQueryFactoryTest {
 
@@ -11,8 +12,8 @@ public class DJTQueryFactoryTest {
 		TestHelper th = new TestHelper();
 		ModelWrapper mw = th.getModelWrapperForFile(path);
 		System.out.println("Model Wrapper(s) loaded for file "+path);
-		
-		return new DJTQueryFactory(mw, true); 
+		DJTDynamicEvidenceFactory evFac = new DJTDynamicEvidenceFactory(mw);
+		return new DJTQueryFactory(mw, true, evFac); 
 	}
 	
 	void printQueriesForFile(String path, int maxTime) {
@@ -22,7 +23,10 @@ public class DJTQueryFactoryTest {
 		String firstQuerysize = queryMap.get(queryMap.keySet().toArray()[queryIndex]);
 		System.out.println(firstQuerysize);
 		
-		System.out.printf("File: %s, query size: %d, # query lines: %d", path, queryMap.keySet().toArray()[queryIndex],firstQuerysize.split("\n").length); 
+		System.out.printf("File: %s, query size: %d, # query lines: %d", 
+				path, 
+				queryMap.keySet().toArray()[queryIndex],
+				firstQuerysize.split("\n").length); 
 	}
 	
 	
