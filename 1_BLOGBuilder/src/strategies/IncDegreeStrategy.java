@@ -13,8 +13,8 @@ import factories.base.RandomSampleFactory;
 
 /**
  * The Increment degree strategy  is intended to test the performance of the lifted Hugin message passing architecture
- * The strategy creates ever larger worlds by adding clusters of randvars that are connected to one single rv, thereby
- * increasing the degree of the world. The ljt algorithm should construct a jtree with a high degree from these worlds.
+ * The strategy creates ever larger worlds by adding clusters of randvars that are connected to one single rv.
+ * The ljt algorithm should construct a jtree with a high degree from these worlds.
  */
 public class IncDegreeStrategy extends WorldCreationStrategy {
 
