@@ -12,12 +12,17 @@ import elements.RandVar;
 import factories.ElementFactory;
 
 public class World {
-	
+
 	/**
 	 * Flag that indicates whether all possible queries hall be created or just 1 query for each randvar.
 	 */
 	private boolean allQueries;
-	
+
+	/**
+	 * Flag that indicates whether  queries shall be created or not.
+	 */
+	private boolean noQueries;
+
 	/**
 	 * Index of current reroll.
 	 */
@@ -67,28 +72,49 @@ public class World {
 	/**
 	 * Constructor with self explanatory arguments.
 	 * World's domainSize will be set to default value(3).
-	 * 
+	 *
 	 * @param allQueries
 	 * @param SpecContainer
 	 */
 	public World(boolean allQueries, SpecContainer sc) {
+		this.noQueries = false;
 		this.allQueries = allQueries;
 		this.specci = sc;
 	}
-	
+
 	/**
 	 * Constructor with self explanatory arguments.
-	 * 
+	 *
+	 * @param rerollIndex
+	 * @param currentIterationIndex
+	 * @param allQueries
+	 * @param specContainer
+	 * @param noQueries
+	 */
+	public World(int rerollIndex, int currentIterationIndex, boolean allQueries,
+				 SpecContainer specContainer, boolean noQueries) {
+		this.rerollIndex = rerollIndex;
+		this.currentIterationIndex = currentIterationIndex;
+		this.allQueries = allQueries;
+		this.specci = specContainer;
+		this.noQueries = noQueries;
+	}
+
+	/**
+	 * Constructor with self explanatory arguments.
+	 *
 	 * @param rerollIndex
 	 * @param currentIterationIndex
 	 * @param allQueries
 	 * @param specContainer
 	 */
-	public World(int rerollIndex, int currentIterationIndex, boolean allQueries, SpecContainer specContainer) {
+	public World(int rerollIndex, int currentIterationIndex, boolean allQueries,
+				 SpecContainer specContainer) {
 		this.rerollIndex = rerollIndex;
 		this.currentIterationIndex = currentIterationIndex;
 		this.allQueries = allQueries;
 		this.specci = specContainer;
+		this.noQueries = false;
 	}
 
 
@@ -177,10 +203,12 @@ public class World {
 		for (Factor fac : this.factors) {
 			ret += fac.asLine();
 		}
-
-		ret += "\n\n";
-		// 4. Create query lines (1 per randVar)
-		ret += this.createQueryLines();
+		
+		if (!this.noQueries) {
+			ret += "\n\n";
+			// 4. Create query lines (1 per randVar)
+			ret += this.createQueryLines();
+		}
 
 		// 5. Insert domain size
 		ret = ret.replace("[XXX]", String.format("[%d]", domainSize));

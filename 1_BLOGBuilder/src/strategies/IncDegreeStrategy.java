@@ -22,7 +22,11 @@ public class IncDegreeStrategy extends WorldCreationStrategy {
 	
 	int[] domainSizes = {10, 100};
 
-	boolean allQueries = false;
+	boolean allQueries = true;
+
+	// In some scenarios, e.g. for evaluation of message passing, no queries are required.
+	// If noQueries is set to false, no queries are included at all.
+	boolean noQueries = true;
 
 	// Base World Config:
 	int logVarCount = smallWorlds ? 1 : 2;
@@ -47,7 +51,7 @@ public class IncDegreeStrategy extends WorldCreationStrategy {
 			// Create & fill base World
 			ConfigSingle.getInstance().getProgressLogger().logWorldStart(globalFileCounter);
 			SpecContainer sc = new SpecContainer(domainSizes, logVarCount, randVarCount, factorCount, maxFacArgs, maxRandVarOccurrences, maxRandVarArgs);
-			World bw = new World(r,0, allQueries, sc);
+			World bw = new World(r,0, allQueries, sc, noQueries);
 			ElementFactory baseFactory = new RandomSampleFactory();
 			bw.fillWorld(baseFactory, baseFactory, baseFactory);
 
@@ -69,7 +73,7 @@ public class IncDegreeStrategy extends WorldCreationStrategy {
 							maxFacArgs,
 							maxRandVarOccurrences,
 							maxRandVarArgs);
-					temp_w = new World(r, 0, allQueries, sc_loc);
+					temp_w = new World(r, 0, allQueries, sc_loc, noQueries);
 
 					temp_w.fillWorld(augFac);
 				}
