@@ -203,11 +203,12 @@ public class World {
 		for (Factor fac : this.factors) {
 			ret += fac.asLine();
 		}
-		
+		ret += "\n\n";
+
 		if (!this.noQueries) {
-			ret += "\n\n";
 			// 4. Create query lines (1 per randVar)
 			ret += this.createQueryLines();
+			ret += "\n\n";
 		}
 
 		// 5. Insert domain size
