@@ -33,6 +33,7 @@ WorldCreationStrategy strat = new RandVarOccAugmStrategy();
 //WorldCreationStrategy strat = new FactorAugmentationStrategy();
 //WorldCreationStrategy strat = new IncByWorldStrategy();
 //WorldCreationStrategy strat = new ParallelFactorArgsAugmentationStrategy();
+//WorldCreationStrategy strat = new IncDegreeStrategy();
 // ...
 ```
 

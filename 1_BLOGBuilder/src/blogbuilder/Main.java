@@ -19,9 +19,9 @@ public class Main {
 		//WorldCreationStrategy strat = new RandVarAugmentationStrategy();
 		//WorldCreationStrategy strat = new FactorAugmentationStrategy();
 		// WorldCreationStrategy strat = new IncByWorldStrategy();
-		WorldCreationStrategy strat = new IncDegreeStrategy();
 		//WorldCreationStrategy strat = new ParallelFactorArgsAugmentationStrategy();
-		
+		WorldCreationStrategy strat = new IncDegreeStrategy();
+
 		strat.start();
 		strat.createWorldCreationSummary();
 		
