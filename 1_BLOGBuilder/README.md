@@ -33,6 +33,7 @@ WorldCreationStrategy strat = new RandVarOccAugmStrategy();
 //WorldCreationStrategy strat = new FactorAugmentationStrategy();
 //WorldCreationStrategy strat = new IncByWorldStrategy();
 //WorldCreationStrategy strat = new ParallelFactorArgsAugmentationStrategy();
+//WorldCreationStrategy strat = new IncDegreeStrategy();
 // ...
 ```
 
@@ -116,6 +117,7 @@ Strategies are implemented as sub-classes of the abstract super class `WorldCrea
 * **`ParallelFactorArgsAugmentationStrategy`**: Augment a given base world by increasing the number of arguments for the existing factors (in parallel for all factors).
 * **`IncByWorldStrategy`**: Augment a given base world by duplicating and connecting initial base world with duplicate.
 * **`RandVarOccAugmStrategy`**: Augment a given base world by increasing the number of times the randvars occur as arguments for the parfactors.
+* **`IncDegreeStrategy`**: Similar to IncByWorldStrategy but duplicates are all connected to a single randvar in the base world, leading to a star topology of the model graph.
 
 ### Factories
 
