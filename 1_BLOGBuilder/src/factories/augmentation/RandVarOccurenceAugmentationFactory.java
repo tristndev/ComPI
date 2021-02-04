@@ -42,14 +42,13 @@ public class RandVarOccurenceAugmentationFactory extends GenericAugmentationFact
 					// No candidates? -> Pick a random one.
 					fac.augmentWithRandVar(w.getRandVars().get(ConfigSingle.getInstance().getRandom().nextInt(w.getRandVars().size())));
 				}
-				
+
 				for (RandVar rv : fac.getArgs()) {
 					rv.addToFactor(fac);
 				}
 			}
 		}
 	}
-	
 
 	@Override
 	public ElementFactory getBaseFactory() {

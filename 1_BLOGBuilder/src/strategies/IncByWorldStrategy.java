@@ -16,7 +16,7 @@ public class IncByWorldStrategy extends WorldCreationStrategy {
 	
 	int[] domainSizes = {10, 100, 1000};
 
-	boolean allQueries = true;
+	boolean allQueries = false;
 	
 	// Base World Config:
 	int logVarCount = smallWorlds ? 1 : 2;

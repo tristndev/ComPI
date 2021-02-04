@@ -5,10 +5,10 @@ It is also possible to implement custom strategies for the creation of models an
 
 ## Content
 
-* [Usage](#usage)
+  * [Usage](#usage)
   * [Setup](#setup)
   * [Build & Execution](#build-&-execution)
-* [Implementation of World Filling Strategies](#implementation-of-world-filling-strategies)
+  * [Implementation of World Filling Strategies](#implementation-of-world-filling-strategies)
   * [Strategies](#strategies)
   * [Factories](#factories)
 

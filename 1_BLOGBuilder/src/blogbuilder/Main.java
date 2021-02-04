@@ -2,11 +2,7 @@ package blogbuilder;
 
 import logging.RVOccDistLogger;
 import logging.SummaryFileWriter;
-import strategies.ParallelFactorArgsAugmentationStrategy;
-import strategies.RandVarAugmentationStrategy;
-import strategies.RandVarOccAugmStrategy;
-import strategies.WorldCreationStrategy;
-import strategies.IncByWorldStrategy;
+import strategies.*;
 
 public class Main {
 
@@ -22,7 +18,8 @@ public class Main {
 		//WorldCreationStrategy strat = new LogVarAugmentationStrategy();
 		//WorldCreationStrategy strat = new RandVarAugmentationStrategy();
 		//WorldCreationStrategy strat = new FactorAugmentationStrategy();
-		WorldCreationStrategy strat = new IncByWorldStrategy();
+		// WorldCreationStrategy strat = new IncByWorldStrategy();
+		WorldCreationStrategy strat = new IncDegreeStrategy();
 		//WorldCreationStrategy strat = new ParallelFactorArgsAugmentationStrategy();
 		
 		strat.start();
