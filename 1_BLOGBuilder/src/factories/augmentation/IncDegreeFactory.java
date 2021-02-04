@@ -71,10 +71,7 @@ public class IncDegreeFactory extends GenericAugmentationFactory  {
 		}
 		
 		// Create connection factor between worlds
-		// connects mergePoint to random rv from world 2
-//		RandVar rndRandVarW1 = w1.getRandVars().get(ConfigSingle.getInstance().getRandom().nextInt(rvCountW1));
-//		RandVar rndRandVarW2 = w1.getRandVars().get(ConfigSingle.getInstance().getRandom().nextInt(w2.getRandVars().size()) + rvCountW1);
-
+		// connects mergePoint to random rv from new world
 		RandVar rndRandVarW1 = mergePoint;
 		RandVar rndRandVarW2 = w1.getRandVars().get(ConfigSingle.getInstance().getRandom().nextInt(w2.getRandVars().size()) + rvCountW1);
 		
