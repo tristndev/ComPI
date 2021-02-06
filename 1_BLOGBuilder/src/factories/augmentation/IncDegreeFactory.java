@@ -14,7 +14,7 @@ import java.util.Arrays;
 /**
  * The increment degree factory creates
  */
-public class IncDegreeFactory extends GenericAugmentationFactory  {
+public class IncDegreeFactory extends GenericAugmentationFactory {
 
     World incWorld;
     int mergePointIndex; // the index to the randvar in the center that connects new worlds
@@ -48,7 +48,7 @@ public class IncDegreeFactory extends GenericAugmentationFactory  {
 
     private World mergeWorlds(World w1, World w2) {
         // Merge LogVars:
-        for (int i = 0; i<w2.getLogVars().size(); i++) {
+        for (int i = 0; i < w2.getLogVars().size(); i++) {
             LogVar currLV = w2.getLogVars().get(i);
 
             currLV.updateIndex(w1.getNextLogVarIndex());
@@ -57,14 +57,14 @@ public class IncDegreeFactory extends GenericAugmentationFactory  {
 
         int rvCountW1 = w1.getRandVars().size();
         // Merge RandVars:
-        for (int i = 0; i <w2.getRandVars().size(); i++) {
+        for (int i = 0; i < w2.getRandVars().size(); i++) {
             RandVar currRV = w2.getRandVars().get(i);
             currRV.updateIndex(w1.getNextRandVarIndex());
             w1.addRandVar(currRV);
         }
 
         // Merge Factors:
-        for (int i=0; i<w2.getFactors().size(); i++) {
+        for (int i = 0; i < w2.getFactors().size(); i++) {
             Factor currFac = w2.getFactors().get(i);
             currFac.updateIndex(w1.getNextFactorIndex());
             w1.addFactor(currFac);
@@ -80,3 +80,4 @@ public class IncDegreeFactory extends GenericAugmentationFactory  {
 
         return w1;
     }
+}
